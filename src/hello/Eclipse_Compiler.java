@@ -62,17 +62,78 @@ public class Eclipse_Compiler extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open");
-		mnNewMenu.add(mntmNewMenuItem_1);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Save");
-		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputData = inputArea.getText();
-				savingData = new StringBuffer(inputData);
-				String fileName = getClassName() + ".java";
-				System.out.println(fileName);
-				//FileUtil.showSaveFileChooser(fileName);
-				FileUtil.save(savingData, fileName);
+				
+				JFrame f = new JFrame();
+				f.setSize(350, 250);
+				
+				TextArea t = new TextArea();
+				f.add(t);
+				
+				f.setVisible(true);
+				
+				FileDialog dialog = new FileDialog(f, "Open", FileDialog.LOAD);
+				dialog.setVisible(true);
+				
+				String path = dialog.getDirectory() + dialog.getFile();
+				
+				String s = "";
+				
+				try {
+					
+					FileReader r = new FileReader( path);
+					
+					int k;
+					for( ; ;) {
+						
+						k = r.read();
+						if( k == -1) break;
+						s += (char) k;
+					}
+					
+					r.close();
+				}catch(Exception e2) {
+					
+					System.out.println("오류"+e);
+				}
+				
+				t.setText(s);
+			}
+		});
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Save");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFrame f = new JFrame();
+				f.setSize(350, 250);
+				
+				TextArea t = new TextArea();
+				f.getContentPane().add(t);
+				
+				f.getContentPane().setLayout( null );
+				
+				f.setVisible(true);
+				
+				FileDialog dialog = new FileDialog(f, "Save", FileDialog.SAVE);
+				dialog.setVisible(true);
+				
+				String path = dialog.getDirectory() + dialog.getFile();
+				System.out.println(path);
+				
+				try {
+					
+					FileWriter w = new FileWriter(path);
+					String s = t.getText();
+					w.write( s );
+					w.close();
+				} catch(Exception e2) {
+					
+					System.out.println("저장오류"+e2);
+					
+				}
+						
+						
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
