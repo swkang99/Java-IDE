@@ -109,8 +109,6 @@ public class Eclipse_Compiler extends JFrame {
 				inputData = inputArea.getText();
 				savingData = new StringBuffer(inputData);
 				String fileName = getClassName() + ".java";
-				System.out.println(fileName);
-				//FileUtil.showSaveFileChooser(fileName);
 				FileUtil.save(savingData, fileName);
 			}
 		});
@@ -157,6 +155,11 @@ public class Eclipse_Compiler extends JFrame {
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Compile");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				inputData = inputArea.getText();
+				savingData = new StringBuffer(inputData);
+				String fileName = getClassName() + ".java";
+				FileUtil.save(savingData, fileName);
+				
 				String className = getClassName();
 				String cmd = new String("javac " +  className + ".java");
 				
