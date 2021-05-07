@@ -159,7 +159,7 @@ public class Eclipse_Compiler extends JFrame {
 				
 				try {
 					Process pc = Runtime.getRuntime().exec(cmd);
-					outputArea.setText("컴파일");
+					outputArea.setText("컴파일 완료");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -210,6 +210,7 @@ public class Eclipse_Compiler extends JFrame {
 		splitPane.setRightComponent(scrollPane_1);
 		
 		outputArea = new JTextArea();
+		outputArea.setEditable(false);
 		scrollPane_1.setViewportView(outputArea);
 	}
 	
