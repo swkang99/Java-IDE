@@ -78,28 +78,13 @@ public class Eclipse_Compiler extends JFrame {
 				if (openFile != null) {
 					String fileName = openFile.getName();
 					String temp = fileName.substring(fileName.length() - 4, fileName.length());
-					
 					if (!temp.equals("java")) {
 						outputArea.setText(".java 파일이 아닙니다.");
-					}
+					} 
 					else {
-						try {
-							setTitle(openFile + " - " + fileName);
-
-							String strLine;
-							BufferedReader myReader = new BufferedReader(new FileReader(openFile.getAbsolutePath()));
-
-							// TextArea에 처음에 1행을 대입
-							inputArea.setText(myReader.readLine());
-							// 2행 이후는 행바꾸기 코드를 넣어 어펜드
-							while ((strLine = myReader.readLine()) != null)
-								inputArea.append("\n" + strLine);
-
-							myReader.close();
-							outputArea.setText("");
-						} catch (IOException ioe) {
-							System.out.println(ioe + "==> 입출력오류 발생");
-						}
+						setTitle(openFile.toString());
+						inputArea.setText(FileUtil.read(fileName).toString());
+						outputArea.setText("");
 					}
 				}
 			}
@@ -109,15 +94,16 @@ public class Eclipse_Compiler extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Save");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputData = inputArea.getText();
-				savingData = new StringBuffer(inputData);
-				String fileName = getClassName() + ".java";
-				
 				JFrame f = new JFrame();
+				String fileName = getClassName() + ".java";
 				File saveFile = FileUtil.showSaveFileChooser(f);
 				
-				FileUtil.save(savingData, fileName);
-				setTitle(saveFile + " - " + fileName);
+				if (saveFile != null) {
+					inputData = inputArea.getText();
+					savingData = new StringBuffer(inputData);
+					FileUtil.save(savingData, fileName);
+					setTitle(saveFile.toString());
+				}
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -173,7 +159,7 @@ public class Eclipse_Compiler extends JFrame {
 				
 				try {
 					Process pc = Runtime.getRuntime().exec(cmd);
-					outputArea.setText("컴파일 완료");
+					outputArea.setText("컴파일");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
