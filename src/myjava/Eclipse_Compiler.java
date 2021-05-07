@@ -112,7 +112,12 @@ public class Eclipse_Compiler extends JFrame {
 				inputData = inputArea.getText();
 				savingData = new StringBuffer(inputData);
 				String fileName = getClassName() + ".java";
+				
+				JFrame f = new JFrame();
+				File saveFile = FileUtil.showSaveFileChooser(f);
+				
 				FileUtil.save(savingData, fileName);
+				setTitle(saveFile + " - " + fileName);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
