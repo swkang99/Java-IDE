@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.awt.event.ActionEvent;
@@ -68,6 +70,37 @@ public class Eclipse_Compiler extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame f = new JFrame();
+				File openFile = FileUtil.showOpenFileChooser(f);
+				String fileName = openFile.getName();
+				
+				String temp = fileName.substring(fileName.length() - 4, fileName.length());
+				if (!temp.equals("java")) {
+					outputArea.setText(".java 파일이 아닙니다.");
+				}
+				else if (openFile != null) {
+					try {
+						setTitle(openFile + " - " + fileName);
+
+						String strLine;
+						BufferedReader myReader = new BufferedReader(new FileReader(openFile.getAbsolutePath()));
+
+						// TextArea에 처음에 1행을 대입
+						inputArea.setText(myReader.readLine());
+						// 2행 이후는 행바꾸기 코드를 넣어 어펜드
+						while ((strLine = myReader.readLine()) != null)
+							inputArea.append("\n" + strLine);
+								
+						myReader.close();
+						outputArea.setText("");
+					} catch (IOException ioe) {
+						System.out.println(ioe + "==> 입출력오류 발생");
+					}
+				}
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Save");
