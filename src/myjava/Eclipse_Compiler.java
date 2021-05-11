@@ -50,7 +50,7 @@ public class Eclipse_Compiler extends JFrame {
 	 * Create the frame.
 	 */
 	public Eclipse_Compiler() {
-		setTitle("Eclipse Compiler");
+		setTitle("Simple Java IDE ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -65,6 +65,7 @@ public class Eclipse_Compiler extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputArea.setText("");
 				outputArea.setText("");
+				setTitle("Simple Java IDE");
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -191,6 +192,15 @@ public class Eclipse_Compiler extends JFrame {
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_8);
+		
+		JMenu mnNewMenu_3 = new JMenu("Option");
+		menuBar.add(mnNewMenu_3);
+		
+		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Show Developer");
+		mnNewMenu_3.add(mntmNewMenuItem_10);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Show Line Number");
+		mnNewMenu_3.add(mntmNewMenuItem_9);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
