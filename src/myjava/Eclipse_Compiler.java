@@ -83,7 +83,9 @@ public class Eclipse_Compiler extends JFrame {
 					} 
 					else {
 						setTitle(openFile.toString());
-						inputArea.setText(FileUtil.read(fileName).toString());
+						temp = FileUtil.read(fileName).toString();
+						temp = temp.replace("\t", "    ");
+						inputArea.setText(temp);
 						outputArea.setText("");
 					}
 				}
