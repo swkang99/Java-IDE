@@ -1,11 +1,16 @@
 package myjava;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.StyleConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -13,6 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
@@ -197,6 +204,20 @@ public class Eclipse_Compiler extends JFrame {
 		menuBar.add(mnNewMenu_3);
 		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Show Developer");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame J = new JFrame();
+				J.setTitle("개발자들");
+				J.setSize(300, 150);
+				J.setLocationRelativeTo(null);
+				J.setVisible(true);
+				
+				JLabel text = new JLabel("목포대학교 강성우 , 박희원");
+				text.setHorizontalAlignment(JLabel.CENTER);
+				text.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+				J.add(text);
+			}
+		});
 		mnNewMenu_3.add(mntmNewMenuItem_10);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Show Line Number");
