@@ -19,6 +19,7 @@ public class FileUtil {
 			while ((line = in.readLine()) != null) {
 				data.append(line);
 				data.append(enter);
+				Eclipse_Compiler.lineCount += 1;
 			}
 			
 			in.close();

@@ -27,6 +27,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.awt.event.ActionEvent;
+import javax.swing.Box;
 
 public class Eclipse_Compiler extends JFrame {
 
@@ -36,6 +37,8 @@ public class Eclipse_Compiler extends JFrame {
 	
 	private String inputData = "";				// 입력된 글자를 저장하는 임시 문자열 데이터
 	private StringBuffer savingData;   			
+	public static int lineCount = 30;
+	private JTextArea lineNumber = new JTextArea();
 	
 	/**
 	 * Launch the application.
@@ -45,6 +48,7 @@ public class Eclipse_Compiler extends JFrame {
 			public void run() {
 				try {
 					Eclipse_Compiler frame = new Eclipse_Compiler();
+					frame.setSize(800, 600);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -92,7 +96,6 @@ public class Eclipse_Compiler extends JFrame {
 					else {
 						setTitle(openFile.toString());
 						temp = FileUtil.read(fileName).toString();
-						temp = temp.replace("\t", "    ");
 						inputArea.setText(temp);
 						outputArea.setText("");
 					}
@@ -215,12 +218,20 @@ public class Eclipse_Compiler extends JFrame {
 				JLabel text = new JLabel("목포대학교 강성우 , 박희원");
 				text.setHorizontalAlignment(JLabel.CENTER);
 				text.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-				J.add(text);
+				J.getContentPane().add(text);
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_10);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Show Line Number");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (lineNumber.isVisible())
+					lineNumber.setVisible(false);
+				else
+					lineNumber.setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(mntmNewMenuItem_9);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -236,12 +247,28 @@ public class Eclipse_Compiler extends JFrame {
 		splitPane.setLeftComponent(scrollPane);
 		
 		inputArea = new JTextArea();
+		inputArea.setTabSize(4);
 		scrollPane.setViewportView(inputArea);
+		
+		Box verticalBox = Box.createVerticalBox();
+		scrollPane.setRowHeaderView(verticalBox);
+		
+		lineNumber = new JTextArea();
+		lineNumber.setEditable(false);
+		lineNumber.setTabSize(4);
+		lineNumber.setColumns(3);
+		verticalBox.add(lineNumber);
+		for (int i = 1; i <= lineCount; i++)
+		{
+			lineNumber.append(Integer.toString(i));
+			lineNumber.append(FileUtil.enter);
+		}
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		splitPane.setRightComponent(scrollPane_1);
 		
 		outputArea = new JTextArea();
+		outputArea.setTabSize(4);
 		outputArea.setEditable(false);
 		scrollPane_1.setViewportView(outputArea);
 	}
