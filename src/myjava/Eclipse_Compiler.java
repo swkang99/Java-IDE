@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.awt.event.ActionEvent;
 import javax.swing.Box;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Eclipse_Compiler extends JFrame {
 
@@ -37,7 +39,7 @@ public class Eclipse_Compiler extends JFrame {
 	
 	private String inputData = "";				// 입력된 글자를 저장하는 임시 문자열 데이터
 	private StringBuffer savingData;   			
-	public static int lineCount = 30;
+	public static int lineCount = 1;
 	private JTextArea lineNumber = new JTextArea();
 	
 	/**
@@ -98,6 +100,9 @@ public class Eclipse_Compiler extends JFrame {
 						temp = FileUtil.read(fileName).toString();
 						inputArea.setText(temp);
 						outputArea.setText("");
+						lineNumber.setText(null);
+						for (int i = 1; i <= lineCount; i++)
+							setLineNumber(i);
 					}
 				}
 			}
@@ -164,9 +169,9 @@ public class Eclipse_Compiler extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputData = inputArea.getText();
 				savingData = new StringBuffer(inputData);
-				
 				String fileName = getClassName() + ".java";
 				FileUtil.save(savingData, fileName);
+				
 				String cmd = new String("javac " +  fileName);
 				
 				try {
@@ -247,6 +252,15 @@ public class Eclipse_Compiler extends JFrame {
 		splitPane.setLeftComponent(scrollPane);
 		
 		inputArea = new JTextArea();
+		inputArea.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyChar() == '\n') {
+					lineCount += 1;
+					setLineNumber(lineCount);
+				}
+			}
+		});
 		inputArea.setTabSize(4);
 		scrollPane.setViewportView(inputArea);
 		
@@ -258,11 +272,7 @@ public class Eclipse_Compiler extends JFrame {
 		lineNumber.setTabSize(4);
 		lineNumber.setColumns(3);
 		verticalBox.add(lineNumber);
-		for (int i = 1; i <= lineCount; i++)
-		{
-			lineNumber.append(Integer.toString(i));
-			lineNumber.append(FileUtil.enter);
-		}
+		setLineNumber(1);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		splitPane.setRightComponent(scrollPane_1);
@@ -285,5 +295,11 @@ public class Eclipse_Compiler extends JFrame {
 			}
 		}
 		return className;
+	}
+	
+	// 줄 번호를 표시함
+	public void setLineNumber(int i) {
+		lineNumber.append(Integer.toString(i));
+		lineNumber.append(FileUtil.enter);
 	}
 }

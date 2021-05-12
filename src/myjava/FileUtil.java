@@ -15,6 +15,7 @@ public class FileUtil {
 			StringBuffer data = new StringBuffer();
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String line = null;
+			Eclipse_Compiler.lineCount = 0;
 			
 			while ((line = in.readLine()) != null) {
 				data.append(line);
