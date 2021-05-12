@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
+import java.awt.FileDialog;
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -65,7 +66,7 @@ public class Eclipse_Compiler extends JFrame {
 	public Eclipse_Compiler() {
 		setTitle("Simple Java IDE ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 800);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -263,6 +264,7 @@ public class Eclipse_Compiler extends JFrame {
 		});
 		inputArea.setTabSize(4);
 		scrollPane.setViewportView(inputArea);
+		inputArea.setFont(new Font("Dialog", Font.PLAIN, 20));  // 폰트 Dialog, PlAIN, 20
 		
 		Box verticalBox = Box.createVerticalBox();
 		scrollPane.setRowHeaderView(verticalBox);
@@ -271,6 +273,7 @@ public class Eclipse_Compiler extends JFrame {
 		lineNumber.setEditable(false);
 		lineNumber.setTabSize(4);
 		lineNumber.setColumns(3);
+		lineNumber.setFont(new Font("Dialog", Font.PLAIN, 20));  // 폰트 Dialog, PlAIN, 20
 		verticalBox.add(lineNumber);
 		setLineNumber(1);
 		
