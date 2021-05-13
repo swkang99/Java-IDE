@@ -172,10 +172,10 @@ public class Eclipse_Compiler extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputData = inputArea.getText();
 				savingData = new StringBuffer(inputData);
-				String fileName = getClassName() + ".java";
-				FileUtil.save(savingData, fileName);
+				String compFile = ".\\bin\\myjava\\" + getClassName() + ".java";
+				FileUtil.save(savingData, compFile);
 				
-				String cmd = new String("javac " +  fileName);
+				String cmd = new String("javac " +  compFile);
 				
 				try {
 					Process pc = Runtime.getRuntime().exec(cmd);
@@ -192,8 +192,8 @@ public class Eclipse_Compiler extends JFrame {
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("run");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String className = getClassName();
-				String cmd = new String("java " +  className);
+				String runFile = ".\\bin\\myjava\\" + getClassName() + ".java";
+				String cmd = new String("java " +  runFile);
 				
 				try {
 					Process pc = Runtime.getRuntime().exec(cmd);
