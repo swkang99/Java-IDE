@@ -245,19 +245,25 @@ public class Eclipse_Compiler extends JFrame {
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Show Source Code");
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame J = new JFrame();
+				
 				String fileName = "./src/myjava/Eclipse_Compiler.java";
 				StringBuffer source = FileUtil.read(fileName);
-				J.setTitle(fileName);
-				J.setSize(300, 200);
-				J.setLocationRelativeTo(null);
-				J.setVisible(true);
 				
+				JFrame J = new JFrame();
 				JTextArea text = new JTextArea();
+				JScrollPane scrollPane_3 = new JScrollPane();
+				
 				text.setEditable(false);
 				text.setFont(new Font("Dialog", Font.PLAIN, 20));  // ÆùÆ® Dialog, PlAIN, 20
 				text.setText(source.toString());
-				J.getContentPane().add(text);
+				
+				scrollPane_3.setViewportView(text);
+				
+				J.setTitle(fileName);
+				J.setSize(500, 500);
+				J.setLocationRelativeTo(null);
+				J.setVisible(true);
+				J.getContentPane().add(scrollPane_3);
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_11);
