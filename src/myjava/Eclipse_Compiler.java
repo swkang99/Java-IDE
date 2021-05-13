@@ -98,7 +98,7 @@ public class Eclipse_Compiler extends JFrame {
 					} 
 					else {
 						setTitle(openFile.toString());
-						temp = FileUtil.read(fileName).toString();
+						temp = FileUtil.read(openFile.getAbsolutePath()).toString();
 						inputArea.setText(temp);
 						outputArea.setText("");
 						lineNumber.setText(null);
@@ -239,6 +239,26 @@ public class Eclipse_Compiler extends JFrame {
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_9);
+		
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Show Source Code");
+		mntmNewMenuItem_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame J = new JFrame();
+				String fileName = "./src/myjava/Eclipse_Compiler.java";
+				StringBuffer source = FileUtil.read(fileName);
+				J.setTitle(fileName);
+				J.setSize(300, 200);
+				J.setLocationRelativeTo(null);
+				J.setVisible(true);
+				
+				JTextArea text = new JTextArea();
+				text.setEditable(false);
+				text.setFont(new Font("Dialog", Font.PLAIN, 20));  // ÆùÆ® Dialog, PlAIN, 20
+				text.setText(source.toString());
+				J.getContentPane().add(text);
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_11);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -304,5 +324,9 @@ public class Eclipse_Compiler extends JFrame {
 	public void setLineNumber(int i) {
 		lineNumber.append(Integer.toString(i));
 		lineNumber.append(FileUtil.enter);
+	}
+	
+	public class PopUp {
+		
 	}
 }
