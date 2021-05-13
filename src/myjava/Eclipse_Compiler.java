@@ -80,6 +80,8 @@ public class Eclipse_Compiler extends JFrame {
 				inputArea.setText("");
 				outputArea.setText("");
 				setTitle("Simple Java IDE");
+				lineNumber.setText("");
+				setLineNumber(1);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -324,9 +326,5 @@ public class Eclipse_Compiler extends JFrame {
 	public void setLineNumber(int i) {
 		lineNumber.append(Integer.toString(i));
 		lineNumber.append(FileUtil.enter);
-	}
-	
-	public class PopUp {
-		
 	}
 }
