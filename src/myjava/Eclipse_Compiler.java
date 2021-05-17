@@ -38,9 +38,9 @@ public class Eclipse_Compiler extends JFrame {
 	private JPanel contentPane;
 	private JTextArea inputArea;
 	private JTextArea outputArea;
-	
+	private JTextArea lineNumber;
 	private StringBuffer savingData;   
-	private JTextArea lineNumber = new JTextArea();
+	
 	
 	/**
 	 * Launch the application.
@@ -78,8 +78,8 @@ public class Eclipse_Compiler extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				inputArea.setText("");
 				outputArea.setText("");
-				setTitle("Simple Java IDE");
 				lineNumber.setText("");
+				setTitle("Simple Java IDE");
 				setLineNumber();
 			}
 		});
@@ -88,8 +88,7 @@ public class Eclipse_Compiler extends JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Open");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame f = new JFrame();
-				File openFile = FileUtil.showOpenFileChooser(f);
+				File openFile = FileUtil.showOpenFileChooser(new JFrame());
 				
 				if (openFile != null) {
 					String fileName = openFile.getName();
@@ -113,9 +112,8 @@ public class Eclipse_Compiler extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Save");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame f = new JFrame();
 				String fileName = getClassName() + ".java";
-				File saveFile = FileUtil.showSaveFileChooser(f);
+				File saveFile = FileUtil.showSaveFileChooser(new JFrame());
 				
 				if (saveFile != null) {
 					savingData = new StringBuffer(new String(inputArea.getText()));
@@ -158,6 +156,7 @@ public class Eclipse_Compiler extends JFrame {
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputArea.cut();
+				setLineNumber();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_6);
@@ -175,7 +174,7 @@ public class Eclipse_Compiler extends JFrame {
 				String cmd = new String("javac " +  compFile);
 				
 				try {
-					Process pc = Runtime.getRuntime().exec(cmd);
+					Runtime.getRuntime().exec(cmd);
 					outputArea.setText("컴파일 완료");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
