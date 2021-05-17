@@ -39,7 +39,6 @@ public class Eclipse_Compiler extends JFrame {
 	private JTextArea inputArea;
 	private JTextArea outputArea;
 	
-	private String inputData = "";				// 입력된 글자를 저장하는 임시 문자열 데이터
 	private StringBuffer savingData;   
 	private JTextArea lineNumber = new JTextArea();
 	
@@ -119,8 +118,7 @@ public class Eclipse_Compiler extends JFrame {
 				File saveFile = FileUtil.showSaveFileChooser(f);
 				
 				if (saveFile != null) {
-					inputData = inputArea.getText();
-					savingData = new StringBuffer(inputData);
+					savingData = new StringBuffer(new String(inputArea.getText()));
 					FileUtil.save(savingData, fileName);
 					setTitle(saveFile.toString());
 				}
@@ -170,8 +168,7 @@ public class Eclipse_Compiler extends JFrame {
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Compile");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputData = inputArea.getText();
-				savingData = new StringBuffer(inputData);
+				savingData = new StringBuffer(new String(inputArea.getText()));
 				String compFile = ".\\bin\\myjava\\" + getClassName() + ".java";
 				FileUtil.save(savingData, compFile);
 				
