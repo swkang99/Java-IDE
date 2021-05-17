@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.StyleConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -39,8 +40,7 @@ public class Eclipse_Compiler extends JFrame {
 	private JTextArea outputArea;
 	
 	private String inputData = "";				// 입력된 글자를 저장하는 임시 문자열 데이터
-	private StringBuffer savingData;   			
-	public static int lineCount = 1;
+	private StringBuffer savingData;   
 	private JTextArea lineNumber = new JTextArea();
 	
 	/**
@@ -81,7 +81,7 @@ public class Eclipse_Compiler extends JFrame {
 				outputArea.setText("");
 				setTitle("Simple Java IDE");
 				lineNumber.setText("");
-				setLineNumber(1);
+				setLineNumber();
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -104,8 +104,7 @@ public class Eclipse_Compiler extends JFrame {
 						inputArea.setText(temp);
 						outputArea.setText("");
 						lineNumber.setText(null);
-						for (int i = 1; i <= lineCount; i++)
-							setLineNumber(i);
+						setLineNumber();
 					}
 				}
 			}
@@ -152,6 +151,7 @@ public class Eclipse_Compiler extends JFrame {
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputArea.paste();
+				setLineNumber();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
@@ -281,13 +281,18 @@ public class Eclipse_Compiler extends JFrame {
 		splitPane.setLeftComponent(scrollPane);
 		
 		inputArea = new JTextArea();
+		inputArea.setFocusable(true);
 		inputArea.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar() == '\n') {
-					lineCount += 1;
-					setLineNumber(lineCount);
+				if (e.getKeyChar() == '\n' || e.getKeyChar() == '\b') {
+					setLineNumber();
 				}
+			}
+			public void keyPressed(KeyEvent e) {
+				if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+					setLineNumber();
+                }
 			}
 		});
 		inputArea.setTabSize(4);
@@ -303,7 +308,7 @@ public class Eclipse_Compiler extends JFrame {
 		lineNumber.setColumns(3);
 		lineNumber.setFont(new Font("Dialog", Font.PLAIN, 20));  // 폰트 Dialog, PlAIN, 20
 		verticalBox.add(lineNumber);
-		setLineNumber(1);
+		setLineNumber();
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		splitPane.setRightComponent(scrollPane_1);
@@ -329,8 +334,11 @@ public class Eclipse_Compiler extends JFrame {
 	}
 	
 	// 줄 번호를 표시함
-	public void setLineNumber(int i) {
-		lineNumber.append(Integer.toString(i));
-		lineNumber.append(FileUtil.enter);
+	public void setLineNumber() {
+		lineNumber.setText("");
+		for (int i = 1; i <= inputArea.getLineCount(); i++) {
+			lineNumber.append(Integer.toString(i));
+			lineNumber.append(FileUtil.enter);
+		}
 	}
 }
