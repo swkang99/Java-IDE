@@ -101,7 +101,6 @@ public class Eclipse_Compiler extends JFrame {
 						temp = FileUtil.read(openFile.getAbsolutePath()).toString();
 						inputArea.setText(temp);
 						outputArea.setText("");
-						lineNumber.setText(null);
 						setLineNumber();
 					}
 				}
@@ -331,7 +330,7 @@ public class Eclipse_Compiler extends JFrame {
 	
 	// 줄 번호를 표시함
 	public void setLineNumber() {
-		lineNumber.setText("");
+		lineNumber.setText(null);
 		for (int i = 1; i <= inputArea.getLineCount(); i++) {
 			lineNumber.append(Integer.toString(i));
 			lineNumber.append(FileUtil.enter);
